@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Attributes Table</title>
+  <link rel="stylesheet" type="text/css" href="./css/asn2.css">
+</head>
+<body>
+  <h2>Add Student</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Weight</th>
+        <th>Height</th>
+        <th>Hair Color</th>
+        <th>GPA</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" class="name-input"></td>
+        <td><input type="text" class="weight-input"></td>
+        <td><input type="text" class="height-input"></td>
+        <td><input type="text" class="hair-color-input"></td>
+        <td><input type="text" class="gpa-input"></td>
+        <td><button onclick="addStudent()">Add</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>All Students</h2>
+  <table id="students-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Weight</th>
+        <th>Height</th>
+        <th>Hair Color</th>
+        <th>GPA</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="students-table-body">
+      <!-- Student rows will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <div id="student-boxes"></div>
+
+  <script src="./js/asn2.js"></script>
+</body>
+</html>
