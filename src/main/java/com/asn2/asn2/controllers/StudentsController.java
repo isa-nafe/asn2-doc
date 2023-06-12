@@ -19,7 +19,7 @@ public class StudentsController {
 
     @GetMapping
     public List<Student> getAllStudents() {
-        return List.of(new Student("Isa", 180, 80, "black", 8.0));
+        return List.of(new Student("Isa", 178, 80, "black", 8.0));
     }
 
     @PostMapping

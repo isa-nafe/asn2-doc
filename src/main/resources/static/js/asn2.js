@@ -1,6 +1,19 @@
 const studentData = [];
 
-function addStudent() {
+function fetchStudents() {
+  fetch('http://localhost:8080/students')
+    .then(response => response.json())
+    .then(data => {
+      studentData = data;
+      displayStudentsTable();
+      displayStudentBoxes();
+    })
+    .catch(error => {
+      console.error('Error fetching student data:', error);
+    });
+}
+
+async function addStudent() {
   // Get input values
   const nameInput = document.querySelector('.name-input');
   const weightInput = document.querySelector('.weight-input');
@@ -17,27 +30,48 @@ function addStudent() {
     gpa: gpaInput.value
   };
 
-  // Add the student to the data array
-  studentData.push(student);
+  try {
+    const response = await fetch('http://localhost:8080/students', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(student)
+    });
 
-  // Clear input fields
-  nameInput.value = '';
-  weightInput.value = '';
-  heightInput.value = '';
-  hairColorInput.value = '';
-  gpaInput.value = '';
+    if (response.ok) {
+      // Clear input fields
+      nameInput.value = '';
+      weightInput.value = '';
+      heightInput.value = '';
+      hairColorInput.value = '';
+      gpaInput.value = '';
 
-  // Display the updated table and student boxes
-  displayStudentsTable();
-  displayStudentBoxes();
+      // Fetch updated student data from the backend
+      fetchStudents();
+    } else {
+      console.error('Error adding student:', response.status);
+    }
+  } catch (error) {
+    console.error('Error adding student:', error);
+  }
 }
 
-function deleteStudent(index) {
-  // Remove the student at the specified index
-  studentData.splice(index, 1);
-  // Display updated table and student boxes
-  displayStudentsTable();
-  displayStudentBoxes();
+async function deleteStudent(index) {
+  try {
+    const response = await fetch(`http://localhost:8080/students/${index}`, {
+      method: 'DELETE'
+    });
+
+    if (response.ok) {
+      // Fetch updated student data from the backend
+      fetchStudents();
+    } else {
+      console.error('Error deleting student:', response.status);
+    }
+  } catch (error) {
+    console.error('Error deleting student:', error);
+  }
 }
 
 function displayStudentsTable() {
