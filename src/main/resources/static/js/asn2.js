@@ -1,4 +1,4 @@
-const studentData = [];
+ let studentData = [];
 
 function fetchStudents() {
   fetch('http://localhost:8080/students')
@@ -59,7 +59,7 @@ async function addStudent() {
 
 async function deleteStudent(index) {
   try {
-    const response = await fetch(`http://localhost:8080/students/${index}`, {
+    const response = await fetch('http://localhost:8080/students/${id}', {
       method: 'DELETE'
     });
 
@@ -77,6 +77,8 @@ async function deleteStudent(index) {
 function displayStudentsTable() {
   const studentsTableBody = document.getElementById('students-table-body');
   studentsTableBody.innerHTML = '';
+
+
 
   // Loop through the studentData array and create table rows
   studentData.forEach((student, index) => {
@@ -145,3 +147,6 @@ function displayStudentBoxes() {
     studentBoxesContainer.appendChild(box);
   });
 }
+
+// Execute fetchStudents() when the HTML page is loaded
+document.addEventListener('DOMContentLoaded', fetchStudents);

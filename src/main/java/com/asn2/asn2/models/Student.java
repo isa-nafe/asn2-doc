@@ -1,6 +1,8 @@
 package com.asn2.asn2.models;
 
 public class Student {
+
+    private int id;
     private String name;
     private double height;
     private double weight;
@@ -16,6 +18,14 @@ public class Student {
         this.weight = weight;
         this.hairColor = hairColor;
         this.gpa = gpa;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
