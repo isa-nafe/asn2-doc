@@ -1,4 +1,6 @@
- let studentData = [];
+// asn2-doc\src\main\resources\static\js
+
+let studentData = [];
 
 function fetchStudents() {
   fetch('http://localhost:8080/students')
@@ -20,6 +22,7 @@ async function addStudent() {
   const heightInput = document.querySelector('.height-input');
   const hairColorInput = document.querySelector('.hair-color-input');
   const gpaInput = document.querySelector('.gpa-input');
+  const idInput = document.querySelector('.id-input');
 
   // Create a new student object
   const student = {
@@ -27,7 +30,8 @@ async function addStudent() {
     weight: weightInput.value,
     height: heightInput.value,
     hairColor: hairColorInput.value,
-    gpa: gpaInput.value
+    gpa: gpaInput.value,
+    id: idInput.value
   };
 
   try {
@@ -46,6 +50,7 @@ async function addStudent() {
       heightInput.value = '';
       hairColorInput.value = '';
       gpaInput.value = '';
+      idInput.value = '';
 
       // Fetch updated student data from the backend
       fetchStudents();
@@ -85,6 +90,11 @@ function displayStudentsTable() {
     const row = document.createElement('tr');
 
     // Create table cells and set their content
+
+    const idCell = document.createElement('td');
+    idCell.textContent = student.id;
+    row.appendChild(idCell);
+
     const nameCell = document.createElement('td');
     nameCell.textContent = student.name;
     row.appendChild(nameCell);
@@ -110,7 +120,7 @@ function displayStudentsTable() {
     
     // Add event listener to the delete button
     deleteBtn.textContent = 'Delete';
-    deleteBtn.addEventListener('click', () => deleteStudent(index));
+    deleteBtn.addEventListener('click', () => deleteStudent(id));
     actionCell.appendChild(deleteBtn);
     row.appendChild(actionCell);
 

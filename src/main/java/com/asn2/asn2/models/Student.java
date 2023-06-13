@@ -1,3 +1,5 @@
+// asn2-doc\src\main\java\com\asn2\asn2\models
+
 package com.asn2.asn2.models;
 
 public class Student {
@@ -12,7 +14,8 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, double height, double weight, String hairColor, double gpa) {
+    public Student(int id, String name, double height, double weight, String hairColor, double gpa) {
+        this.id = id;
         this.name = name;
         this.height = height;
         this.weight = weight;

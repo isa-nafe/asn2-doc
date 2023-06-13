@@ -1,3 +1,5 @@
+/* asn2-doc\src\main\resources\static\css */
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -19,6 +21,7 @@ th, td {
   text-align: left;
 }
 
+.id-input,
 .name-input,
 .weight-input,
 .height-input,
