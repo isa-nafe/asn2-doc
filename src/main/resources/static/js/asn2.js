@@ -1,4 +1,5 @@
-// asn2-doc\src\main\resources\static\js
+// Place: asn2-doc\src\main\resources\static\js
+// Filename: asn2.js
 
 let studentData = [];
 
@@ -148,10 +149,15 @@ function displayStudentBoxes() {
     const gpa = document.createElement('span');
     gpa.textContent = `${student.gpa} GPA`;
 
+    const id = document.createElement('span');
+    id.textContent = `ID: ${student.id}`
+
     // Append elements to the student box
     box.appendChild(name);
     box.appendChild(document.createElement('br'));
     box.appendChild(gpa);
+    box.appendChild(document.createElement('br'));
+    box.appendChild(id);
 
     // Append the box to the container
     studentBoxesContainer.appendChild(box);
