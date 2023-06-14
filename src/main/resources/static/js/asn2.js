@@ -5,7 +5,7 @@ displayStudentsTable();
 displayStudentBoxes();
 
 function fetchStudents() {
-  fetch('http://localhost:8080/students')
+  fetch('https://asn2-doc-test-1.onrender.com/students')
     .then(response => response.json())
     .then(data => {
       studentData = data;
@@ -37,7 +37,7 @@ async function addStudent() {
   };
 
   try {
-    const response = await fetch('http://localhost:8080/students', {
+    const response = await fetch('https://asn2-doc-test-1.onrender.com/students', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -65,12 +65,8 @@ async function addStudent() {
 }
 
 async function deleteStudent(index) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 9baff57a8f4d578e5e9df8de4481216e08f3a99d
   try {
-    const response = await fetch(`http://localhost:8080/students/${index}`, {
+    const response = await fetch(`https://asn2-doc-test-1.onrender.com/students/${index}`, {
       method: 'DELETE'
     });
 
@@ -217,16 +213,11 @@ function enableEditMode(row, index) {
 }
 
 async function saveEditedStudent(id, name, weight, height, hairColor, gpa) {
-<<<<<<< HEAD
   const editedStudent = {id, name, weight, height, hairColor, gpa};
-  console.log(editedStudent);
-=======
-  const editedStudent = { ...studentData[index], name, weight, height, hairColor, gpa };
->>>>>>> 9baff57a8f4d578e5e9df8de4481216e08f3a99d
 
   try {
     // Send a POST request to the server to save the edited student data
-    const response = await fetch('http://localhost:8080/students/' + id, {
+    const response = await fetch('https://asn2-doc-test-1.onrender.com/students/' + id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -236,15 +227,12 @@ async function saveEditedStudent(id, name, weight, height, hairColor, gpa) {
 
     if (response.ok) {
       console.log('Student data saved successfully!');
-<<<<<<< HEAD
        for (let i = 0; i < studentData.length; i++) {
         if (studentData[i].id === id) {
             studentData[i] = editedStudent;
             break; // Exit the loop after finding the matching student
           }
         }
-=======
->>>>>>> 9baff57a8f4d578e5e9df8de4481216e08f3a99d
     } else {
       console.log('Failed to save student data.');
     }
@@ -252,10 +240,6 @@ async function saveEditedStudent(id, name, weight, height, hairColor, gpa) {
     console.log('An error occurred while saving student data:', error);
   }
 
-<<<<<<< HEAD
-=======
-  studentData[id] = editedStudent;
->>>>>>> 9baff57a8f4d578e5e9df8de4481216e08f3a99d
   displayStudentsTable();
   displayStudentBoxes();
 }
