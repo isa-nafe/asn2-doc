@@ -9,6 +9,7 @@
   <table>
     <thead>
       <tr>
+        <th>Student ID</th>
         <th>Name</th>
         <th>Weight</th>
         <th>Height</th>
@@ -19,11 +20,12 @@
     </thead>
     <tbody>
       <tr>
+        <td><input type="number" class="id-input"></td>
         <td><input type="text" class="name-input"></td>
-        <td><input type="text" class="weight-input"></td>
-        <td><input type="text" class="height-input"></td>
-        <td><input type="text" class="hair-color-input"></td>
-        <td><input type="text" class="gpa-input"></td>
+        <td><input type="number" class="weight-input"></td>
+        <td><input type="number" class="height-input"></td>
+        <td><input type="color" class="hair-color-input"></td>
+        <td><input type="number" class="gpa-input"></td>
         <td><button onclick="addStudent()">Add</button></td>
       </tr>
     </tbody>
@@ -33,6 +35,7 @@
   <table id="students-table">
     <thead>
       <tr>
+        <th>Student ID</th>
         <th>Name</th>
         <th>Weight</th>
         <th>Height</th>

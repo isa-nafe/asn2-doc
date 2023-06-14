@@ -12,7 +12,8 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, double height, double weight, String hairColor, double gpa) {
+    public Student(int id, String name, double height, double weight, String hairColor, double gpa) {
+        this.id = id;
         this.name = name;
         this.height = height;
         this.weight = weight;
@@ -68,5 +69,3 @@ public class Student {
         this.gpa = gpa;
     }
 }
-
-// connect js with java

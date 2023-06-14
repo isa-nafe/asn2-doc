@@ -19,11 +19,7 @@ th, td {
   text-align: left;
 }
 
-.name-input,
-.weight-input,
-.height-input,
-.hair-color-input,
-.gpa-input {
+input {
   width: 85%;
   padding: 5px;
   border: 1px solid #ddd;

@@ -1,4 +1,7 @@
- let studentData = [];
+let studentData = [];
+// Execute fetchStudents() when the HTML page is loaded
+document.addEventListener('DOMContentLoaded', fetchStudents);
+
 
 function fetchStudents() {
   fetch('http://localhost:8080/students')
@@ -15,6 +18,7 @@ function fetchStudents() {
 
 async function addStudent() {
   // Get input values
+  const idInput = document.querySelector('.id-input');
   const nameInput = document.querySelector('.name-input');
   const weightInput = document.querySelector('.weight-input');
   const heightInput = document.querySelector('.height-input');
@@ -23,6 +27,7 @@ async function addStudent() {
 
   // Create a new student object
   const student = {
+    id: idInput.value,
     name: nameInput.value,
     weight: weightInput.value,
     height: heightInput.value,
@@ -41,6 +46,7 @@ async function addStudent() {
 
     if (response.ok) {
       // Clear input fields
+      idInput.value = '';
       nameInput.value = '';
       weightInput.value = '';
       heightInput.value = '';
@@ -78,40 +84,53 @@ function displayStudentsTable() {
   const studentsTableBody = document.getElementById('students-table-body');
   studentsTableBody.innerHTML = '';
 
-
-
   // Loop through the studentData array and create table rows
   studentData.forEach((student, index) => {
     const row = document.createElement('tr');
 
     // Create table cells and set their content
+    const idCell = document.createElement('td');
+    idCell.textContent = student.id;
+    row.appendChild(idCell);
+
     const nameCell = document.createElement('td');
-    nameCell.textContent = student.name;
+    const nameInput = createTextInput(student.name);
+    nameCell.appendChild(nameInput);
     row.appendChild(nameCell);
 
     const weightCell = document.createElement('td');
-    weightCell.textContent = student.weight;
+    const weightInput = createTextInput(student.weight);
+    weightCell.appendChild(weightInput);
     row.appendChild(weightCell);
 
     const heightCell = document.createElement('td');
-    heightCell.textContent = student.height;
+    const heightInput = createTextInput(student.height);
+    heightCell.appendChild(heightInput);
     row.appendChild(heightCell);
 
     const hairColorCell = document.createElement('td');
-    hairColorCell.textContent = student.hairColor;
+    const hairColorInput = createTextInput(student.hairColor);
+    hairColorCell.appendChild(hairColorInput);
     row.appendChild(hairColorCell);
 
     const gpaCell = document.createElement('td');
-    gpaCell.textContent = student.gpa;
+    const gpaInput = createTextInput(student.gpa);
+    gpaCell.appendChild(gpaInput);
     row.appendChild(gpaCell);
 
     const actionCell = document.createElement('td');
     const deleteBtn = document.createElement('button');
-    
-    // Add event listener to the delete button
     deleteBtn.textContent = 'Delete';
     deleteBtn.addEventListener('click', () => deleteStudent(index));
     actionCell.appendChild(deleteBtn);
+
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.addEventListener('click', () => {
+      enableEditMode(row, index);
+    });
+    actionCell.appendChild(editBtn);
+
     row.appendChild(actionCell);
 
     // Append the row to the table body
@@ -132,13 +151,18 @@ function displayStudentBoxes() {
     box.style.width = `${parseInt(student.weight)}px`;
 
     // Create name and GPA elements
+    const id = document.createElement('span');
+    id.textContent = `ID: ${student.id}`;
+
     const name = document.createElement('span');
-    name.textContent = student.name;
+    name.textContent = `Name: ${student.name}`;
 
     const gpa = document.createElement('span');
-    gpa.textContent = `${student.gpa} GPA`;
+    gpa.textContent = `GPA: ${student.gpa}`;
 
     // Append elements to the student box
+    box.appendChild(id);
+    box.appendChild(document.createElement('br'));
     box.appendChild(name);
     box.appendChild(document.createElement('br'));
     box.appendChild(gpa);
@@ -148,5 +172,55 @@ function displayStudentBoxes() {
   });
 }
 
-// Execute fetchStudents() when the HTML page is loaded
-document.addEventListener('DOMContentLoaded', fetchStudents);
+function createTextInput(value) {
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = value;
+  return input;
+}
+
+function enableEditMode(row, index) {
+  const cells = row.getElementsByTagName('td');
+  const nameInput = createTextInput(cells[1].textContent);
+  const weightInput = createTextInput(cells[2].textContent);
+  const heightInput = createTextInput(cells[3].textContent);
+  const hairColorInput = createTextInput(cells[4].textContent);
+  const gpaInput = createTextInput(cells[5].textContent);
+
+  cells[1].textContent = '';
+  cells[1].appendChild(nameInput);
+
+  cells[2].textContent = '';
+  cells[2].appendChild(weightInput);
+
+  cells[3].textContent = '';
+  cells[3].appendChild(heightInput);
+
+  cells[4].textContent = '';
+  cells[4].appendChild(hairColorInput);
+
+  cells[5].textContent = '';
+  cells[5].appendChild(gpaInput);
+
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = 'Save';
+  saveBtn.addEventListener('click', () => {
+    saveEditedStudent(index, nameInput.value, weightInput.value, heightInput.value, hairColorInput.value, gpaInput.value);
+  });
+
+  cells[6].replaceChild(saveBtn, cells[6].firstChild);
+}
+
+function saveEditedStudent(id, name, weight, height, hairColor, gpa) {
+  const editedStudent = {
+    ...studentData[id],
+    name,
+    weight,
+    height,
+    hairColor,
+    gpa
+  };
+  studentData[id] = editedStudent;
+  displayStudentsTable();
+  displayStudentBoxes()
+}
