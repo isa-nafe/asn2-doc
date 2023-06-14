@@ -65,10 +65,9 @@ async function addStudent() {
 }
 
 async function deleteStudent(index) {
-  const studentId = studentData[index].id;
 
   try {
-    const response = await fetch(`http://localhost:8080/students/${studentId}`, {
+    const response = await fetch(`http://localhost:8080/students/${index}`, {
       method: 'DELETE'
     });
 
@@ -215,15 +214,28 @@ function enableEditMode(row, index) {
 }
 
 async function saveEditedStudent(id, name, weight, height, hairColor, gpa) {
-  const editedStudent = {
-    ...studentData[id],
-    name,
-    weight,
-    height,
-    hairColor,
-    gpa
-  };
+  const editedStudent = { ...studentData[index], name, weight, height, hairColor, gpa };
+
+  try {
+    // Send a POST request to the server to save the edited student data
+    const response = await fetch('http://localhost:8080/students/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedStudent),
+    });
+
+    if (response.ok) {
+      console.log('Student data saved successfully!');
+    } else {
+      console.log('Failed to save student data.');
+    }
+  } catch (error) {
+    console.log('An error occurred while saving student data:', error);
+  }
+
   studentData[id] = editedStudent;
   displayStudentsTable();
-  displayStudentBoxes()
+  displayStudentBoxes();
 }
