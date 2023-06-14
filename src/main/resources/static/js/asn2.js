@@ -64,8 +64,10 @@ async function addStudent() {
 }
 
 async function deleteStudent(index) {
+  const studentId = studentData[index].id;
+
   try {
-    const response = await fetch('http://localhost:8080/students/${id}', {
+    const response = await fetch(`http://localhost:8080/students/${studentId}`, {
       method: 'DELETE'
     });
 
@@ -121,7 +123,7 @@ function displayStudentsTable() {
     const actionCell = document.createElement('td');
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
-    deleteBtn.addEventListener('click', () => deleteStudent(index));
+    deleteBtn.addEventListener('click', () => deleteStudent(student.id[index]));
     actionCell.appendChild(deleteBtn);
 
     const editBtn = document.createElement('button');
