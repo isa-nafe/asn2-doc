@@ -65,10 +65,8 @@ async function addStudent() {
 }
 
 async function deleteStudent(index) {
-  const studentId = studentData[index].id;
-
   try {
-    const response = await fetch(`http://localhost:8080/students/${studentId}`, {
+    const response = await fetch(`http://localhost:8080/students/${index}`, {
       method: 'DELETE'
     });
 
@@ -130,7 +128,7 @@ function displayStudentsTable() {
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
     editBtn.addEventListener('click', () => {
-      enableEditMode(row, index);
+      enableEditMode(row, student.id);
     });
     actionCell.appendChild(editBtn);
 
@@ -215,15 +213,34 @@ function enableEditMode(row, index) {
 }
 
 async function saveEditedStudent(id, name, weight, height, hairColor, gpa) {
-  const editedStudent = {
-    ...studentData[id],
-    name,
-    weight,
-    height,
-    hairColor,
-    gpa
-  };
-  studentData[id] = editedStudent;
+  const editedStudent = {id, name, weight, height, hairColor, gpa};
+  console.log(editedStudent);
+
+  try {
+    // Send a POST request to the server to save the edited student data
+    const response = await fetch('http://localhost:8080/students/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedStudent),
+    });
+
+    if (response.ok) {
+      console.log('Student data saved successfully!');
+       for (let i = 0; i < studentData.length; i++) {
+        if (studentData[i].id === id) {
+            studentData[i] = editedStudent;
+            break; // Exit the loop after finding the matching student
+          }
+        }
+    } else {
+      console.log('Failed to save student data.');
+    }
+  } catch (error) {
+    console.log('An error occurred while saving student data:', error);
+  }
+
   displayStudentsTable();
-  displayStudentBoxes()
+  displayStudentBoxes();
 }

@@ -1,21 +1,39 @@
-// Place: asn2-doc\src\main\java\com\asn2\asn2\models
-// Filename: Student.java
-
 package com.asn2.asn2.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+
+@Entity
+@Table(name = "student")
 public class Student {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "height")
     private double height;
+
+    @Column(name = "weight")
     private double weight;
+
+    @Column(name = "haircolor")
     private String hairColor;
+
+    @Column(name = "gpa")
     private double gpa;
 
     public Student() {
     }
 
-    public Student(int id, String name, double height, double weight, String hairColor, double gpa) {
+    public Student(long id, String name, double height, double weight, String hairColor, double gpa) {
         this.id = id;
         this.name = name;
         this.height = height;
@@ -24,7 +42,7 @@ public class Student {
         this.gpa = gpa;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

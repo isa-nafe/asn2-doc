@@ -35,6 +35,7 @@ public class StudentDatabase {
   }
   
   public void edit(int id, Student updatedStudent) {
+    updatedStudent.setId(id);
     for (int i = 0; i < students.size(); i++) {
       if (students.get(i).getId() == id) {
         students.set(i, updatedStudent);

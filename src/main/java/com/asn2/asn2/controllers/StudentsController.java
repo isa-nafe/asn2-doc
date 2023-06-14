@@ -14,38 +14,31 @@ import java.util.List;
 @RestController
 @RequestMapping("/students")
 public class StudentsController {
-    //private final StudentRepository studentRepository;
-
-//    @Autowired
-//    public StudentsController(StudentRepository studentRepository) {
-//
-//    }
-
-    private final StudentDatabase studentDatabase;
+    private StudentRepository studentRepository;
 
     @Autowired
-    public StudentsController(StudentDatabase studentDatabase) {
-        this.studentDatabase = studentDatabase;
+    public StudentsController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     @GetMapping
     public List<Student> getAllStudents() {
-        return studentDatabase.getStudents();
+        return studentRepository.findAll();
     }
 
     @PostMapping
     public Student addStudent(@RequestBody Student student) {
-        studentDatabase.add(student);
+        studentRepository.save(student);
         return student;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable int id) {
-        studentDatabase.delete(id);
+    public void deleteStudent(@PathVariable long id) {
+        studentRepository.deleteById(id);
     }
 
     @PutMapping("/{id}")
-    public void editStudent(@PathVariable int id, @RequestBody Student updatedStudent) {
-        studentDatabase.edit(id, updatedStudent);
+    public void editStudent(@PathVariable long id, @RequestBody Student updatedStudent) {
+        studentRepository.save(updatedStudent);
     }
 }
