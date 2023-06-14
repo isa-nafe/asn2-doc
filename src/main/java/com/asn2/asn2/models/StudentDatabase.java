@@ -33,5 +33,9 @@ public class StudentDatabase {
 
     students.remove(studentToRemove);
   }
+  
+  public void edit(int id){
+    
+  }
 
 }
