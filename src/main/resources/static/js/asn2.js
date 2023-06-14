@@ -1,7 +1,8 @@
 let studentData = [];
 // Execute fetchStudents() when the HTML page is loaded
 document.addEventListener('DOMContentLoaded', fetchStudents);
-
+displayStudentsTable();
+displayStudentBoxes();
 
 function fetchStudents() {
   fetch('http://localhost:8080/students')
@@ -123,7 +124,7 @@ function displayStudentsTable() {
     const actionCell = document.createElement('td');
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
-    deleteBtn.addEventListener('click', () => deleteStudent(student.id[index]));
+    deleteBtn.addEventListener('click', () => deleteStudent(student.id));
     actionCell.appendChild(deleteBtn);
 
     const editBtn = document.createElement('button');
@@ -213,7 +214,7 @@ function enableEditMode(row, index) {
   cells[6].replaceChild(saveBtn, cells[6].firstChild);
 }
 
-function saveEditedStudent(id, name, weight, height, hairColor, gpa) {
+async function saveEditedStudent(id, name, weight, height, hairColor, gpa) {
   const editedStudent = {
     ...studentData[id],
     name,

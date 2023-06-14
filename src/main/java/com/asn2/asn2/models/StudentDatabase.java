@@ -34,8 +34,13 @@ public class StudentDatabase {
     students.remove(studentToRemove);
   }
   
-  public void edit(int id){
-    
+  public void edit(int id, Student updatedStudent) {
+    for (int i = 0; i < students.size(); i++) {
+      if (students.get(i).getId() == id) {
+        students.set(i, updatedStudent);
+        break;
+      }
+    }
   }
 
 }

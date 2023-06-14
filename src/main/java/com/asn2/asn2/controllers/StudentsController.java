@@ -43,4 +43,9 @@ public class StudentsController {
     public void deleteStudent(@PathVariable int id) {
         studentDatabase.delete(id);
     }
+
+    @PutMapping("/{id}")
+    public void editStudent(@PathVariable int id, @RequestBody Student updatedStudent) {
+        studentDatabase.edit(id, updatedStudent);
+    }
 }
